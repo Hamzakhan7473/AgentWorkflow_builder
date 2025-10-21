@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  .node-container {
+    @apply bg-white border border-gray-200 rounded-lg shadow-sm p-4 min-w-[200px];
+  }
+  
+  .node-header {
+    @apply flex items-center justify-between mb-3;
+  }
+  
+  .node-title {
+    @apply font-semibold text-gray-900 text-sm;
+  }
+  
+  .node-status {
+    @apply w-2 h-2 rounded-full;
+  }
+  
+  .node-status.idle {
+    @apply bg-gray-300;
+  }
+  
+  .node-status.running {
+    @apply bg-blue-500 animate-pulse;
+  }
+  
+  .node-status.success {
+    @apply bg-green-500;
+  }
+  
+  .node-status.error {
+    @apply bg-red-500;
+  }
+  
+  .config-panel {
+    @apply bg-white border border-gray-200 rounded-lg shadow-lg p-6 max-w-md;
+  }
+  
+  .config-title {
+    @apply text-lg font-semibold text-gray-900 mb-4;
+  }
+  
+  .config-field {
+    @apply mb-4;
+  }
+  
+  .config-label {
+    @apply block text-sm font-medium text-gray-700 mb-1;
+  }
+  
+  .config-input {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent;
+  }
+  
+  .config-select {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent;
+  }
+  
+  .config-textarea {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none;
+  }
+  
+  .btn-primary {
+    @apply bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors;
+  }
+  
+  .btn-secondary {
+    @apply bg-gray-200 text-gray-900 px-4 py-2 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors;
+  }
+  
+  .btn-danger {
+    @apply bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-colors;
+  }
+}
