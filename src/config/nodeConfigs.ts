@@ -1,4 +1,13 @@
 import { NodeConfig, NodeType } from '../types';
+import { 
+  Globe, 
+  FileText, 
+  Hash, 
+  Search, 
+  Bot, 
+  Download, 
+  Upload 
+} from 'lucide-react';
 
 export const nodeConfigs: Record<NodeType, NodeConfig> = {
   [NodeType.WEB_SCRAPING]: {
@@ -170,14 +179,14 @@ export const nodeConfigs: Record<NodeType, NodeConfig> = {
   }
 };
 
-export const nodeIcons: Record<NodeType, string> = {
-  [NodeType.WEB_SCRAPING]: '🌐',
-  [NodeType.STRUCTURED_OUTPUT]: '📋',
-  [NodeType.EMBEDDING_GENERATOR]: '🔢',
-  [NodeType.SIMILARITY_SEARCH]: '🔍',
-  [NodeType.LLM_TASK]: '🤖',
-  [NodeType.DATA_INPUT]: '📥',
-  [NodeType.DATA_OUTPUT]: '📤',
+export const nodeIcons: Record<NodeType, React.ComponentType<any>> = {
+  [NodeType.WEB_SCRAPING]: Globe,
+  [NodeType.STRUCTURED_OUTPUT]: FileText,
+  [NodeType.EMBEDDING_GENERATOR]: Hash,
+  [NodeType.SIMILARITY_SEARCH]: Search,
+  [NodeType.LLM_TASK]: Bot,
+  [NodeType.DATA_INPUT]: Upload,
+  [NodeType.DATA_OUTPUT]: Download,
 };
 
 export const nodeColors: Record<NodeType, string> = {

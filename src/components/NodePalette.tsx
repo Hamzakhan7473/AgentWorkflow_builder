@@ -78,7 +78,7 @@ const NodePalette: React.FC<NodePaletteProps> = ({ onAddNode }) => {
                   className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-white text-sm font-medium"
                   style={{ backgroundColor: nodeColors[nodeType.type] }}
                 >
-                  {nodeIcons[nodeType.type]}
+                  {React.createElement(nodeIcons[nodeType.type], { className: "w-4 h-4" })}
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">

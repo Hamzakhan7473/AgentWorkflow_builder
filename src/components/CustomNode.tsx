@@ -57,7 +57,7 @@ const CustomNode: React.FC<NodeProps<CustomNodeData>> = ({ data, selected }) => 
   };
 
   const nodeType = getNodeTypeFromLabel(data.label);
-  const icon = nodeIcons[nodeType];
+  const IconComponent = nodeIcons[nodeType];
   const color = nodeColors[nodeType];
 
   return (
@@ -78,7 +78,7 @@ const CustomNode: React.FC<NodeProps<CustomNodeData>> = ({ data, selected }) => 
             className="w-6 h-6 rounded-md flex items-center justify-center text-white text-sm"
             style={{ backgroundColor: color }}
           >
-            {icon}
+            <IconComponent className="w-4 h-4" />
           </div>
           <span className="node-title">{data.label}</span>
         </div>
