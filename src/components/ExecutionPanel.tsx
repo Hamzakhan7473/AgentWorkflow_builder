@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ExecutionResult, NodeStatus } from '../types';
-import { Play, Square, Download, Eye, EyeOff } from 'lucide-react';
+import { Play, Square, Download, Eye, EyeOff, Minimize2 } from 'lucide-react';
 
 interface ExecutionPanelProps {
   isExecuting: boolean;
@@ -9,6 +9,7 @@ interface ExecutionPanelProps {
   onStartExecution: () => void;
   onStopExecution: () => void;
   onExportResults: () => void;
+  onMinimize: () => void;
 }
 
 const ExecutionPanel: React.FC<ExecutionPanelProps> = ({
@@ -17,7 +18,8 @@ const ExecutionPanel: React.FC<ExecutionPanelProps> = ({
   executionLogs,
   onStartExecution,
   onStopExecution,
-  onExportResults
+  onExportResults,
+  onMinimize
 }) => {
   const [showLogs, setShowLogs] = useState(false);
   const [selectedResult, setSelectedResult] = useState<ExecutionResult | null>(null);
@@ -81,6 +83,14 @@ const ExecutionPanel: React.FC<ExecutionPanelProps> = ({
                 Export
               </button>
             )}
+            
+            <button
+              className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded"
+              onClick={onMinimize}
+              title="Minimize execution panel"
+            >
+              <Minimize2 className="w-4 h-4" />
+            </button>
           </div>
         </div>
       </div>

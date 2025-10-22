@@ -56,6 +56,7 @@ const WorkflowBuilder: React.FC = () => {
   const [showWelcome, setShowWelcome] = useState(true);
   const [history, setHistory] = useState<{nodes: Node[], edges: Edge[]}[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
+  const [isExecutionPanelMinimized, setIsExecutionPanelMinimized] = useState(false);
   
   const reactFlowInstance = useRef<ReactFlowInstance | null>(null);
   const executor = useRef(new WorkflowExecutor());
@@ -388,22 +389,6 @@ const WorkflowBuilder: React.FC = () => {
                     Start Blank
                   </button>
                 </div>
-                {/* Statistics Section */}
-                <div className="mt-8 grid grid-cols-3 gap-4 text-center">
-                  <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
-                    <div className="text-2xl font-bold text-green-600">+42</div>
-                    <div className="text-xs text-gray-500">Hours Saved</div>
-                  </div>
-                  <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
-                    <div className="text-2xl font-bold text-green-600">98.6%</div>
-                    <div className="text-xs text-gray-500">Success Rate</div>
-                  </div>
-                  <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
-                    <div className="text-2xl font-bold text-green-600">$1.8k</div>
-                    <div className="text-xs text-gray-500">Monthly Value</div>
-                  </div>
-                </div>
-                
                 <div className="mt-6 text-sm text-gray-500">
                   <p className="mb-2 font-medium">Quick Start:</p>
                   <div className="grid grid-cols-2 gap-2 text-xs">
@@ -467,14 +452,33 @@ const WorkflowBuilder: React.FC = () => {
       </div>
 
       {/* Execution Panel */}
-      <ExecutionPanel
-        isExecuting={isExecuting}
-        executionResults={executionResults}
-        executionLogs={executionLogs}
-        onStartExecution={startExecution}
-        onStopExecution={stopExecution}
-        onExportResults={exportResults}
-      />
+      {!isExecutionPanelMinimized ? (
+        <ExecutionPanel
+          isExecuting={isExecuting}
+          executionResults={executionResults}
+          executionLogs={executionLogs}
+          onStartExecution={startExecution}
+          onStopExecution={stopExecution}
+          onExportResults={exportResults}
+          onMinimize={() => setIsExecutionPanelMinimized(true)}
+        />
+      ) : (
+        <div className="bg-white border-t border-gray-200 p-3 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+            <span className="text-sm text-gray-600">Execution Panel</span>
+          </div>
+          <button
+            onClick={() => setIsExecutionPanelMinimized(false)}
+            className="p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded"
+            title="Expand execution panel"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+        </div>
+      )}
 
       {/* Template Loader Modal */}
       {showTemplateLoader && (
