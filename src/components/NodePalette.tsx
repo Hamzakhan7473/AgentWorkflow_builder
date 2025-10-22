@@ -8,13 +8,13 @@ interface NodePaletteProps {
 }
 
 const nodeTypes = [
-  { type: NodeType.WEB_SCRAPING, label: 'Web Scraping', description: 'Extract content from websites', category: 'Data Sources' },
-  { type: NodeType.STRUCTURED_OUTPUT, label: 'Structured Output', description: 'Parse data with JSON schema', category: 'Processing' },
-  { type: NodeType.EMBEDDING_GENERATOR, label: 'Embedding Generator', description: 'Create vector embeddings', category: 'AI Processing' },
-  { type: NodeType.SIMILARITY_SEARCH, label: 'Similarity Search', description: 'Find similar content', category: 'AI Processing' },
-  { type: NodeType.LLM_TASK, label: 'LLM Task', description: 'Generate text with AI', category: 'AI Processing' },
-  { type: NodeType.DATA_INPUT, label: 'Data Input', description: 'Input data entry point', category: 'Data Sources' },
-  { type: NodeType.DATA_OUTPUT, label: 'Data Output', description: 'Output data endpoint', category: 'Data Sources' },
+  { type: NodeType.WEB_SCRAPING, label: 'Web Scraping', description: 'Automatically extract and summarize content from any website', category: 'Data Sources' },
+  { type: NodeType.STRUCTURED_OUTPUT, label: 'Structured Output', description: 'Parse unstructured data into clean JSON schemas', category: 'Processing' },
+  { type: NodeType.EMBEDDING_GENERATOR, label: 'Embedding Generator', description: 'Transform text into vector representations for AI', category: 'AI Processing' },
+  { type: NodeType.SIMILARITY_SEARCH, label: 'Similarity Search', description: 'Find semantically similar content in your knowledge base', category: 'AI Processing' },
+  { type: NodeType.LLM_TASK, label: 'LLM Task', description: 'Generate intelligent responses with advanced AI models', category: 'AI Processing' },
+  { type: NodeType.DATA_INPUT, label: 'Data Input', description: 'Start your workflow with structured data entry', category: 'Data Sources' },
+  { type: NodeType.DATA_OUTPUT, label: 'Data Output', description: 'Export results in multiple formats for your team', category: 'Data Sources' },
 ];
 
 const NodePalette: React.FC<NodePaletteProps> = ({ onAddNode }) => {
@@ -108,12 +108,12 @@ const NodePalette: React.FC<NodePaletteProps> = ({ onAddNode }) => {
       
       <div className="p-4 border-t border-gray-200 bg-gray-50">
         <div className="text-xs text-gray-500">
-          <p className="font-medium mb-2">Quick Tips:</p>
+          <p className="font-medium mb-2">Built for Efficiency:</p>
           <ul className="space-y-1">
-            <li>• Click to add nodes to canvas</li>
-            <li>• Drag from output to input to connect</li>
-            <li>• Double-click nodes to configure</li>
-            <li>• Use Ctrl+Z/Y for undo/redo</li>
+            <li>• Drag & Drop - Build flows visually</li>
+            <li>• One-Click Launch - Deploy agents instantly</li>
+            <li>• No-Code Friendly - Use without technical skills</li>
+            <li>• Real-Time Tracking - Measure efficiency gains</li>
           </ul>
         </div>
       </div>

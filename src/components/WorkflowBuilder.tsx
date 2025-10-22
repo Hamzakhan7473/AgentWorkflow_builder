@@ -279,8 +279,10 @@ const WorkflowBuilder: React.FC = () => {
                   <Zap className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <h1 className="text-xl font-bold text-gray-900">Agent Workflow Builder</h1>
-                  <p className="text-sm text-gray-500">Visual AI workflow designer</p>
+                  <h1 className="text-xl font-bold text-gray-900">
+                    <span className="gradient-text">Agent</span> Workflow Builder
+                  </h1>
+                  <p className="text-sm text-gray-500">Built for Speed • No-Code Friendly • Easy Onboarding</p>
                 </div>
               </div>
               
@@ -364,9 +366,12 @@ const WorkflowBuilder: React.FC = () => {
                 <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
                   <Zap className="w-8 h-8 text-white" />
                 </div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-3">Welcome to Agent Workflow Builder</h2>
-                <p className="text-gray-600 mb-6">
-                  Create powerful AI workflows by connecting nodes. Start by adding nodes from the palette or load a template.
+                <h2 className="text-3xl font-bold text-gray-900 mb-3">
+                  <span className="gradient-text">Automate Smarter</span>
+                </h2>
+                <h3 className="text-xl font-semibold text-gray-700 mb-2">Grow Faster. Bolder.</h3>
+                <p className="text-gray-600 mb-6 max-w-md">
+                  Unlock your team's full potential with AI agents that save time, cut costs, and scale with you — no code, no clutter, just results.
                 </p>
                 <div className="flex gap-3 justify-center">
                   <button
@@ -383,8 +388,24 @@ const WorkflowBuilder: React.FC = () => {
                     Start Blank
                   </button>
                 </div>
-                <div className="mt-8 text-sm text-gray-500">
-                  <p className="mb-2">Keyboard Shortcuts:</p>
+                {/* Statistics Section */}
+                <div className="mt-8 grid grid-cols-3 gap-4 text-center">
+                  <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
+                    <div className="text-2xl font-bold text-green-600">+42</div>
+                    <div className="text-xs text-gray-500">Hours Saved</div>
+                  </div>
+                  <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
+                    <div className="text-2xl font-bold text-green-600">98.6%</div>
+                    <div className="text-xs text-gray-500">Success Rate</div>
+                  </div>
+                  <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
+                    <div className="text-2xl font-bold text-green-600">$1.8k</div>
+                    <div className="text-xs text-gray-500">Monthly Value</div>
+                  </div>
+                </div>
+                
+                <div className="mt-6 text-sm text-gray-500">
+                  <p className="mb-2 font-medium">Quick Start:</p>
                   <div className="grid grid-cols-2 gap-2 text-xs">
                     <span>Ctrl+N - Load template</span>
                     <span>Ctrl+S - Export workflow</span>
