@@ -190,11 +190,11 @@ export const nodeIcons: Record<NodeType, React.ComponentType<any>> = {
 };
 
 export const nodeColors: Record<NodeType, string> = {
-  [NodeType.WEB_SCRAPING]: '#10a37f',
+  [NodeType.WEB_SCRAPING]: '#667eea',
   [NodeType.STRUCTURED_OUTPUT]: '#8b5cf6',
-  [NodeType.EMBEDDING_GENERATOR]: '#f59e0b',
-  [NodeType.SIMILARITY_SEARCH]: '#06b6d4',
-  [NodeType.LLM_TASK]: '#ef4444',
-  [NodeType.DATA_INPUT]: '#6b7280',
-  [NodeType.DATA_OUTPUT]: '#6b7280',
+  [NodeType.EMBEDDING_GENERATOR]: '#06b6d4',
+  [NodeType.SIMILARITY_SEARCH]: '#f59e0b',
+  [NodeType.LLM_TASK]: '#ec4899',
+  [NodeType.DATA_INPUT]: '#64748b',
+  [NodeType.DATA_OUTPUT]: '#64748b',
 };

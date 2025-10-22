@@ -2,20 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-/* OpenAI-inspired design system */
+/* Agentix-inspired design system */
 :root {
-  --openai-green: #10a37f;
-  --openai-dark-green: #0d8f6f;
-  --openai-gray-50: #f7f7f8;
-  --openai-gray-100: #ececf1;
-  --openai-gray-200: #d9d9e3;
-  --openai-gray-300: #c5c5d2;
-  --openai-gray-400: #acacbe;
-  --openai-gray-500: #8e8ea0;
-  --openai-gray-600: #565869;
-  --openai-gray-700: #40414f;
-  --openai-gray-800: #343541;
-  --openai-gray-900: #202123;
+  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --agentix-purple: #8b5cf6;
+  --agentix-blue: #3b82f6;
+  --agentix-pink: #ec4899;
+  --agentix-gray-50: #f8fafc;
+  --agentix-gray-100: #f1f5f9;
+  --agentix-gray-200: #e2e8f0;
+  --agentix-gray-300: #cbd5e1;
+  --agentix-gray-400: #94a3b8;
+  --agentix-gray-500: #64748b;
+  --agentix-gray-600: #475569;
+  --agentix-gray-700: #334155;
+  --agentix-gray-800: #1e293b;
+  --agentix-gray-900: #0f172a;
 }
 
 @layer base {
@@ -24,14 +28,15 @@
   }
   
   body {
-    background: var(--openai-gray-50);
+    background: var(--agentix-gray-50);
   }
 }
 
 @layer components {
   .node-container {
-    @apply bg-white border border-gray-200 rounded-xl shadow-sm p-4 min-w-[220px] hover:shadow-md transition-all duration-200;
-    background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+    @apply bg-white border border-gray-200 rounded-2xl shadow-sm p-4 min-w-[220px] hover:shadow-lg transition-all duration-300;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    backdrop-filter: blur(10px);
   }
   
   .node-header {
@@ -113,55 +118,91 @@
   }
   
   .btn-primary {
-    @apply text-white px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2;
-    background: linear-gradient(135deg, var(--openai-green) 0%, var(--openai-dark-green) 100%);
+    @apply text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2;
+    background: var(--primary-gradient);
     border: none;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    position: relative;
+    overflow: hidden;
   }
   
   .btn-primary:hover {
-    background: linear-gradient(135deg, var(--openai-dark-green) 0%, #0a7a5f 100%);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+  
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+  
+  .btn-primary:hover::before {
+    left: 100%;
   }
   
   .btn-secondary {
-    @apply bg-gray-100 text-gray-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-200 transition-all duration-200 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2;
+    @apply bg-white text-gray-700 px-6 py-3 rounded-xl font-semibold hover:bg-gray-50 transition-all duration-300 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    backdrop-filter: blur(10px);
   }
   
   .btn-secondary:hover {
-    background: var(--openai-gray-200);
+    background: var(--agentix-gray-50);
     transform: translateY(-1px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   }
   
   .btn-danger {
-    @apply bg-red-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-red-600 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2;
+    @apply bg-red-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-red-600 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
   
   .btn-danger:hover {
     transform: translateY(-1px);
+    box-shadow: 0 10px 15px -3px rgba(239, 68, 68, 0.3), 0 4px 6px -2px rgba(239, 68, 68, 0.1);
   }
   
-  /* OpenAI-style cards */
+  /* Agentix-style cards */
   .card {
-    @apply bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-200;
-    background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+    @apply bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    backdrop-filter: blur(10px);
   }
   
-  /* OpenAI-style panels */
+  /* Agentix-style panels */
   .panel {
-    @apply bg-white border border-gray-200 rounded-xl shadow-sm;
-    background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+    @apply bg-white border border-gray-200 rounded-2xl shadow-sm;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    backdrop-filter: blur(10px);
   }
   
-  /* OpenAI-style gradients */
+  /* Agentix-style gradients */
   .gradient-bg {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--primary-gradient);
   }
   
   .gradient-text {
-    background: linear-gradient(135deg, var(--openai-green) 0%, #059669 100%);
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .gradient-text-secondary {
+    background: var(--secondary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .gradient-text-success {
+    background: var(--success-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

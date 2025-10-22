@@ -276,7 +276,7 @@ const WorkflowBuilder: React.FC = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center">
+                <div className="w-8 h-8 gradient-bg rounded-lg flex items-center justify-center shadow-md">
                   <Zap className="w-5 h-5 text-white" />
                 </div>
                 <div>
@@ -364,7 +364,7 @@ const WorkflowBuilder: React.FC = () => {
           {showWelcome && nodes.length === 0 ? (
             <div className="absolute inset-0 flex items-center justify-center bg-gray-50 z-10">
               <div className="text-center max-w-md mx-auto p-8">
-                <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <div className="w-16 h-16 gradient-bg rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
                   <Zap className="w-8 h-8 text-white" />
                 </div>
                 <h2 className="text-3xl font-bold text-gray-900 mb-3">
