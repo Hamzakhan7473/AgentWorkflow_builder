@@ -6,6 +6,7 @@ import { Clock, CheckCircle, XCircle, Loader } from 'lucide-react';
 
 interface CustomNodeData {
   label: string;
+  nodeType?: NodeType;
   status: NodeStatus;
   config: Record<string, any>;
   inputData?: any;
@@ -45,18 +46,7 @@ const CustomNode: React.FC<NodeProps<CustomNodeData>> = ({ data, selected }) => 
     }
   };
 
-  const getNodeTypeFromLabel = (label: string): NodeType => {
-    if (label.toLowerCase().includes('web')) return NodeType.WEB_SCRAPING;
-    if (label.toLowerCase().includes('structured')) return NodeType.STRUCTURED_OUTPUT;
-    if (label.toLowerCase().includes('embedding')) return NodeType.EMBEDDING_GENERATOR;
-    if (label.toLowerCase().includes('similarity')) return NodeType.SIMILARITY_SEARCH;
-    if (label.toLowerCase().includes('llm')) return NodeType.LLM_TASK;
-    if (label.toLowerCase().includes('input')) return NodeType.DATA_INPUT;
-    if (label.toLowerCase().includes('output')) return NodeType.DATA_OUTPUT;
-    return NodeType.LLM_TASK;
-  };
-
-  const nodeType = getNodeTypeFromLabel(data.label);
+  const nodeType = data.nodeType || NodeType.LLM_TASK;
   const IconComponent = nodeIcons[nodeType];
   const color = nodeColors[nodeType];
 

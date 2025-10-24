@@ -61,6 +61,19 @@ const WorkflowBuilder: React.FC = () => {
   const reactFlowInstance = useRef<ReactFlowInstance | null>(null);
   const executor = useRef(new WorkflowExecutor());
 
+  const getNodeLabel = (nodeType: NodeType): string => {
+    switch (nodeType) {
+      case NodeType.WEB_SCRAPING: return 'Web Scraping';
+      case NodeType.STRUCTURED_OUTPUT: return 'Structured Output';
+      case NodeType.EMBEDDING_GENERATOR: return 'Embedding Generator';
+      case NodeType.SIMILARITY_SEARCH: return 'Similarity Search';
+      case NodeType.LLM_TASK: return 'LLM Task';
+      case NodeType.DATA_INPUT: return 'Data Input';
+      case NodeType.DATA_OUTPUT: return 'Data Output';
+      default: return 'Unknown Node';
+    }
+  };
+
   // Keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -137,7 +150,8 @@ const WorkflowBuilder: React.FC = () => {
       type: 'custom',
       position: { x: Math.random() * 400, y: Math.random() * 400 },
       data: {
-        label: nodeConfigs[nodeType] ? Object.keys(nodeConfigs[nodeType])[0] : nodeType,
+        label: getNodeLabel(nodeType),
+        nodeType: nodeType,
         status: NodeStatus.IDLE,
         config: {},
         inputData: null,
@@ -234,7 +248,7 @@ const WorkflowBuilder: React.FC = () => {
       name: workflowName,
       nodes: nodes.map(node => ({
         id: node.id,
-        type: node.data.label as NodeType,
+        type: node.data.nodeType || NodeType.LLM_TASK,
         position: node.position,
         data: node.data,
       })),
@@ -258,7 +272,10 @@ const WorkflowBuilder: React.FC = () => {
       id: node.id,
       type: 'custom',
       position: node.position,
-      data: node.data,
+      data: {
+        ...node.data,
+        nodeType: node.type,
+      },
     }));
     
     setNodes(templateNodes);
@@ -440,7 +457,7 @@ const WorkflowBuilder: React.FC = () => {
             <div className="absolute top-4 right-4 z-10">
               <NodeConfigPanel
                 nodeId={selectedNode.id}
-                nodeType={selectedNode.data.label as NodeType}
+                nodeType={selectedNode.data.nodeType || NodeType.LLM_TASK}
                 nodeLabel={selectedNode.data.label}
                 config={selectedNode.data.config}
                 onConfigChange={onConfigChange}

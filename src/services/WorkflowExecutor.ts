@@ -54,14 +54,15 @@ export class WorkflowExecutor {
     previousResults: ExecutionResult[]
   ): Promise<ExecutionResult> {
     const startTime = Date.now();
-    this.log(`Executing node: ${node.data.label} (${node.type})`);
+    const nodeType = node.data.nodeType || node.type as NodeType;
+    this.log(`Executing node: ${node.data.label} (${nodeType})`);
     
     try {
       // Get input data for this node
       const nodeInputData = this.getNodeInputData(node, inputData, previousResults);
       
       // Execute based on node type
-      const outputData = await this.executeNodeByType(node.type, nodeInputData, node.data.config);
+      const outputData = await this.executeNodeByType(nodeType, nodeInputData, node.data.config);
       
       const executionTime = Date.now() - startTime;
       this.log(`Node ${node.data.label} completed successfully in ${executionTime}ms`);
@@ -308,3 +309,4 @@ export class WorkflowExecutor {
     return this.isExecuting;
   }
 }
+
