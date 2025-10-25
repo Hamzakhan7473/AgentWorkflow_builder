@@ -37,12 +37,10 @@ export interface AgentInstance {
 export class AgentDeploymentService {
   private deployedAgents: Map<string, AgentInstance> = new Map();
   private deploymentQueue: Array<{ workflow: Workflow; config: DeploymentConfig }> = [];
+  private sampleAgentsInitialized: boolean = false;
 
   constructor() {
-    // Add some sample agents for testing
     console.log('AgentDeploymentService: Initializing service');
-    this.initializeSampleAgents();
-    console.log('AgentDeploymentService: Sample agents initialized, total agents:', this.deployedAgents.size);
   }
 
   private initializeSampleAgents() {
@@ -199,6 +197,12 @@ export class AgentDeploymentService {
   }
 
   getAgent(agentId: string): AgentInstance | null {
+    // Initialize sample agents if not done yet
+    if (!this.sampleAgentsInitialized) {
+      this.initializeSampleAgents();
+      this.sampleAgentsInitialized = true;
+    }
+    
     console.log('AgentDeploymentService: Getting agent with ID:', agentId);
     console.log('AgentDeploymentService: Available agents:', Array.from(this.deployedAgents.keys()));
     const agent = this.deployedAgents.get(agentId) || null;
