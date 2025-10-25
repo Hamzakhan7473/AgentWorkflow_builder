@@ -38,6 +38,86 @@ export class AgentDeploymentService {
   private deployedAgents: Map<string, AgentInstance> = new Map();
   private deploymentQueue: Array<{ workflow: Workflow; config: DeploymentConfig }> = [];
 
+  constructor() {
+    // Add some sample agents for testing
+    this.initializeSampleAgents();
+  }
+
+  private initializeSampleAgents() {
+    const sampleAgent: AgentInstance = {
+      id: 'agent_n2kkyoxc7',
+      name: 'Taxora AI Analyzer',
+      description: 'Analyzes taxora.ai website content and generates insights',
+      workflow: {
+        id: 'sample-workflow',
+        name: 'Taxora Analysis',
+        description: 'Sample workflow for testing',
+        nodes: [
+          {
+            id: 'input-1',
+            type: NodeType.DATA_INPUT,
+            position: { x: 100, y: 100 },
+            data: {
+              label: 'Website URL',
+              status: NodeStatus.IDLE,
+              config: { inputType: 'url' }
+            }
+          },
+          {
+            id: 'scraper-1',
+            type: NodeType.WEB_SCRAPING,
+            position: { x: 300, y: 100 },
+            data: {
+              label: 'Web Scraper',
+              status: NodeStatus.IDLE,
+              config: { url: 'https://taxora.ai' }
+            }
+          },
+          {
+            id: 'llm-1',
+            type: NodeType.LLM_TASK,
+            position: { x: 500, y: 100 },
+            data: {
+              label: 'AI Analyzer',
+              status: NodeStatus.IDLE,
+              config: { prompt: 'Analyze this website content' }
+            }
+          },
+          {
+            id: 'output-1',
+            type: NodeType.DATA_OUTPUT,
+            position: { x: 700, y: 100 },
+            data: {
+              label: 'Results',
+              status: NodeStatus.IDLE,
+              config: { outputFormat: 'json' }
+            }
+          }
+        ],
+        edges: [
+          { id: 'e1', source: 'input-1', target: 'scraper-1' },
+          { id: 'e2', source: 'scraper-1', target: 'llm-1' },
+          { id: 'e3', source: 'llm-1', target: 'output-1' }
+        ],
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      config: {
+        agentName: 'Taxora AI Analyzer',
+        description: 'Analyzes taxora.ai website content and generates insights',
+        isPublic: true,
+        rateLimit: 100
+      },
+      status: 'active',
+      createdAt: new Date(),
+      lastUsed: new Date(),
+      usageCount: 5,
+      url: `${window.location.origin}/agent/agent_n2kkyoxc7`
+    };
+
+    this.deployedAgents.set('agent_n2kkyoxc7', sampleAgent);
+  }
+
   async deployAgent(workflow: Workflow, config: DeploymentConfig): Promise<DeploymentResult> {
     const startTime = Date.now();
     
