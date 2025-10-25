@@ -10,22 +10,24 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "reactflow": "^11.10.4",
-    "openai": "^4.20.1",
+    "@types/react-router-dom": "^5.3.3",
     "axios": "^1.6.2",
     "cheerio": "^1.0.0-rc.12",
-    "uuid": "^9.0.1",
-    "lucide-react": "^0.294.0",
     "clsx": "^2.0.0",
-    "tailwind-merge": "^2.0.0"
+    "lucide-react": "^0.294.0",
+    "openai": "^4.20.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^7.9.4",
+    "reactflow": "^11.10.4",
+    "tailwind-merge": "^2.0.0",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@types/cheerio": "^0.22.31",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
     "@types/uuid": "^9.0.7",
-    "@types/cheerio": "^0.22.31",
     "@typescript-eslint/eslint-plugin": "^6.10.0",
     "@typescript-eslint/parser": "^6.10.0",
     "@vitejs/plugin-react": "^4.1.1",
@@ -39,4 +41,3 @@
     "vite": "^4.5.0"
   }
 }
-
