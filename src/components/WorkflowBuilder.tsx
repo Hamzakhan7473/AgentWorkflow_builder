@@ -19,13 +19,12 @@ import NodePalette from './NodePalette';
 import NodeConfigPanel from './NodeConfigPanel';
 import ExecutionPanel from './ExecutionPanel';
 import TemplateLoader from './TemplateLoader';
+import DeploymentPanel from './DeploymentPanel';
+import AgentDashboard from './AgentDashboard';
 import { NodeType, NodeStatus, Workflow, ExecutionResult } from '../types';
 import { WorkflowExecutor } from '../services/WorkflowExecutor';
-import { nodeConfigs } from '../config/nodeConfigs';
 import { v4 as uuidv4 } from 'uuid';
 import { 
-  Play, 
-  Square, 
   Download, 
   Upload, 
   Settings, 
@@ -36,7 +35,9 @@ import {
   Trash2,
   Copy,
   Undo,
-  Redo
+  Redo,
+  Rocket,
+  BarChart3
 } from 'lucide-react';
 
 const nodeTypes = {
@@ -57,6 +58,8 @@ const WorkflowBuilder: React.FC = () => {
   const [history, setHistory] = useState<{nodes: Node[], edges: Edge[]}[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [isExecutionPanelMinimized, setIsExecutionPanelMinimized] = useState(false);
+  const [showDeploymentPanel, setShowDeploymentPanel] = useState(false);
+  const [showAgentDashboard, setShowAgentDashboard] = useState(false);
   
   const reactFlowInstance = useRef<ReactFlowInstance | null>(null);
   const executor = useRef(new WorkflowExecutor());
@@ -197,7 +200,7 @@ const WorkflowBuilder: React.FC = () => {
     setExecutionLogs([]);
     
     try {
-      const results = await executor.current.executeWorkflow(nodes, edges);
+      const results = await executor.current.executeWorkflow(nodes as any, edges as any);
       setExecutionResults(results);
       setExecutionLogs(executor.current.getExecutionLogs());
       
@@ -283,6 +286,14 @@ const WorkflowBuilder: React.FC = () => {
     setWorkflowName(template.name);
   }, [setNodes, setEdges]);
 
+  const handleDeployAgent = useCallback(() => {
+    if (nodes.length === 0) {
+      alert('Please create a workflow before deploying');
+      return;
+    }
+    setShowDeploymentPanel(true);
+  }, [nodes]);
+
   const selectedNode = selectedNodeId ? nodes.find(n => n.id === selectedNodeId) : null;
 
   return (
@@ -349,6 +360,25 @@ const WorkflowBuilder: React.FC = () => {
               >
                 <FolderOpen className="w-4 h-4" />
                 Templates
+              </button>
+              
+              <button
+                className="btn-primary flex items-center gap-2"
+                onClick={handleDeployAgent}
+                title="Deploy agent instantly"
+                disabled={nodes.length === 0}
+              >
+                <Rocket className="w-4 h-4" />
+                Deploy Agent
+              </button>
+              
+              <button
+                className="btn-secondary flex items-center gap-2"
+                onClick={() => setShowAgentDashboard(true)}
+                title="View agent dashboard"
+              >
+                <BarChart3 className="w-4 h-4" />
+                Dashboard
               </button>
               
               <button
@@ -503,6 +533,34 @@ const WorkflowBuilder: React.FC = () => {
         <TemplateLoader
           onLoadTemplate={loadTemplate}
           onClose={() => setShowTemplateLoader(false)}
+        />
+      )}
+
+      {/* Deployment Panel */}
+      {showDeploymentPanel && (
+        <DeploymentPanel
+          workflow={{
+            id: uuidv4(),
+            name: workflowName,
+            description: 'AI agent workflow',
+            nodes: nodes.map(node => ({
+              id: node.id,
+              type: node.data.nodeType || NodeType.LLM_TASK,
+              position: node.position,
+              data: node.data,
+            })),
+            edges,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          }}
+          onClose={() => setShowDeploymentPanel(false)}
+        />
+      )}
+
+      {/* Agent Dashboard */}
+      {showAgentDashboard && (
+        <AgentDashboard
+          onClose={() => setShowAgentDashboard(false)}
         />
       )}
     </div>
