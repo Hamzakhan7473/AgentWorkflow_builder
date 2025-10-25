@@ -40,7 +40,7 @@ export class AgentDeploymentService {
   private sampleAgentsInitialized: boolean = false;
 
   constructor() {
-    console.log('AgentDeploymentService: Initializing service');
+    // Service initialized
   }
 
   private initializeSampleAgents() {
@@ -118,7 +118,6 @@ export class AgentDeploymentService {
     };
 
     this.deployedAgents.set('agent_n2kkyoxc7', sampleAgent);
-    console.log('AgentDeploymentService: Sample agent created with ID:', sampleAgent.id);
   }
 
   async deployAgent(workflow: Workflow, config: DeploymentConfig): Promise<DeploymentResult> {
@@ -203,11 +202,7 @@ export class AgentDeploymentService {
       this.sampleAgentsInitialized = true;
     }
     
-    console.log('AgentDeploymentService: Getting agent with ID:', agentId);
-    console.log('AgentDeploymentService: Available agents:', Array.from(this.deployedAgents.keys()));
-    const agent = this.deployedAgents.get(agentId) || null;
-    console.log('AgentDeploymentService: Found agent:', agent);
-    return agent;
+    return this.deployedAgents.get(agentId) || null;
   }
 
   getAllAgents(): AgentInstance[] {

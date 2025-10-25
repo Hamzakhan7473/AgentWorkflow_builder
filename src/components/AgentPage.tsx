@@ -24,15 +24,10 @@ const AgentPage: React.FC<AgentPageProps> = ({ agentId }) => {
   const [executionTime, setExecutionTime] = useState<number | null>(null);
 
   useEffect(() => {
-    console.log('AgentPage: Looking for agent with ID:', agentId);
-    console.log('AgentPage: Service instance:', agentDeploymentService);
-    console.log('AgentPage: All agents:', agentDeploymentService.getAllAgents());
     const agentInstance = agentDeploymentService.getAgent(agentId);
-    console.log('AgentPage: Found agent:', agentInstance);
     if (agentInstance) {
       setAgent(agentInstance);
     } else {
-      console.log('AgentPage: Agent not found, setting error');
       setError('Agent not found');
     }
   }, [agentId]);
