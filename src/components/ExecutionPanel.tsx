@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { ExecutionResult, NodeStatus } from '../types';
+import { ExecutionResult, NodeStatus, NodeType } from '../types';
 import { Play, Square, Download, Eye, EyeOff, Minimize2 } from 'lucide-react';
+import ResultDisplay from './ResultDisplay';
 
 interface ExecutionPanelProps {
   isExecuting: boolean;
@@ -10,6 +11,7 @@ interface ExecutionPanelProps {
   onStopExecution: () => void;
   onExportResults: () => void;
   onMinimize: () => void;
+  nodes?: any[]; // Add nodes to get node type information
 }
 
 const ExecutionPanel: React.FC<ExecutionPanelProps> = ({
@@ -19,10 +21,19 @@ const ExecutionPanel: React.FC<ExecutionPanelProps> = ({
   onStartExecution,
   onStopExecution,
   onExportResults,
-  onMinimize
+  onMinimize,
+  nodes = []
 }) => {
   const [showLogs, setShowLogs] = useState(false);
   const [selectedResult, setSelectedResult] = useState<ExecutionResult | null>(null);
+
+  const getNodeInfo = (nodeId: string) => {
+    const node = nodes.find(n => n.id === nodeId);
+    return {
+      nodeType: node?.data?.nodeType || NodeType.LLM_TASK,
+      nodeLabel: node?.data?.label || 'Unknown Node'
+    };
+  };
 
   const getStatusIcon = (status: NodeStatus) => {
     switch (status) {
@@ -141,12 +152,12 @@ const ExecutionPanel: React.FC<ExecutionPanelProps> = ({
           {/* Selected Result Details */}
           {selectedResult && (
             <div className="border border-gray-200 rounded-lg p-4">
-              <h5 className="font-medium text-gray-900 mb-2">Result Details</h5>
-              <div className="bg-gray-50 rounded p-3 max-h-40 overflow-y-auto">
-                <pre className="text-xs text-gray-700 whitespace-pre-wrap">
-                  {JSON.stringify(selectedResult.outputData, null, 2)}
-                </pre>
-              </div>
+              <h5 className="font-medium text-gray-900 mb-4">Result Details</h5>
+              <ResultDisplay
+                result={selectedResult}
+                nodeType={getNodeInfo(selectedResult.nodeId).nodeType}
+                nodeLabel={getNodeInfo(selectedResult.nodeId).nodeLabel}
+              />
             </div>
           )}
         </div>

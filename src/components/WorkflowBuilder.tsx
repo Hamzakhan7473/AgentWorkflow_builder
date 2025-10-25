@@ -470,15 +470,16 @@ const WorkflowBuilder: React.FC = () => {
 
       {/* Execution Panel */}
       {!isExecutionPanelMinimized ? (
-        <ExecutionPanel
-          isExecuting={isExecuting}
-          executionResults={executionResults}
-          executionLogs={executionLogs}
-          onStartExecution={startExecution}
-          onStopExecution={stopExecution}
-          onExportResults={exportResults}
-          onMinimize={() => setIsExecutionPanelMinimized(true)}
-        />
+          <ExecutionPanel
+            isExecuting={isExecuting}
+            executionResults={executionResults}
+            executionLogs={executionLogs}
+            onStartExecution={startExecution}
+            onStopExecution={stopExecution}
+            onExportResults={exportResults}
+            onMinimize={() => setIsExecutionPanelMinimized(true)}
+            nodes={nodes}
+          />
       ) : (
         <div className="bg-white border-t border-gray-200 p-3 flex items-center justify-between">
           <div className="flex items-center gap-2">

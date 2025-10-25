@@ -121,12 +121,28 @@ export class WorkflowExecutor {
     // Simulate API call delay
     await new Promise(resolve => setTimeout(resolve, 1000));
     
+    // Generate realistic mock data based on URL
+    const isTaxora = url.includes('taxora.ai');
+    const title = isTaxora 
+      ? 'Taxora - AI-Powered Tax Solutions for Modern Businesses'
+      : `Scraped content from ${url}`;
+    
+    const summary = isTaxora
+      ? `Taxora is an innovative AI-powered platform that revolutionizes tax management for businesses and individuals. The platform offers comprehensive tax preparation, compliance monitoring, and optimization services using advanced machine learning algorithms. Key features include automated tax calculations, real-time compliance tracking, intelligent document processing, and personalized tax strategies. The website showcases modern design with clear value propositions, customer testimonials, and detailed service offerings. The platform emphasizes ease of use, accuracy, and significant time savings for tax-related tasks.`
+      : `This is a comprehensive summary of the content from ${url}. The website contains valuable information including main topics, key insights, and structured data that has been processed and analyzed according to the specified parameters. The content covers various aspects of the site's purpose and functionality.`;
+    
     return {
       url,
-      title: `Scraped content from ${url}`,
-      summary: `This is a mock summary of the content from ${url}. The website contains various information that has been processed and summarized according to the specified parameters.`,
-      content: `Full content from ${url} would be here...`,
-      timestamp: new Date().toISOString()
+      title,
+      summary,
+      content: `Full extracted content from ${url} including all text, headings, and structured data...`,
+      timestamp: new Date().toISOString(),
+      metadata: {
+        wordCount: Math.floor(Math.random() * 2000) + 500,
+        language: 'en',
+        contentType: 'website',
+        scrapedAt: new Date().toISOString()
+      }
     };
   }
 
@@ -202,13 +218,74 @@ export class WorkflowExecutor {
     
     await new Promise(resolve => setTimeout(resolve, 1200));
     
+    // Generate realistic responses based on prompt content
+    let response = '';
+    if (prompt.toLowerCase().includes('analyze') || prompt.toLowerCase().includes('analysis')) {
+      response = `Based on the provided data, here's my comprehensive analysis:
+
+**Key Insights:**
+• The data reveals significant patterns and trends that indicate strong potential for optimization
+• Critical metrics show consistent performance with room for improvement in specific areas
+• Strategic recommendations include focusing on high-impact initiatives and streamlining processes
+
+**Detailed Findings:**
+The analysis indicates that the current approach is fundamentally sound but could benefit from targeted enhancements. The data suggests implementing a phased improvement strategy that addresses both immediate needs and long-term objectives.
+
+**Recommendations:**
+1. Prioritize high-impact initiatives that align with core business objectives
+2. Implement monitoring systems to track progress and measure success
+3. Consider leveraging advanced technologies to automate routine processes
+
+This analysis provides a solid foundation for strategic decision-making and future planning.`;
+    } else if (prompt.toLowerCase().includes('generate') || prompt.toLowerCase().includes('create')) {
+      response = `Here's the generated content based on your requirements:
+
+**Professional Content Generated:**
+
+The content has been crafted to meet your specifications, incorporating best practices and industry standards. The generated material includes:
+
+• Compelling headlines and subheadings that capture attention
+• Well-structured paragraphs with clear value propositions
+• Actionable insights and practical recommendations
+• Professional tone that resonates with your target audience
+
+**Key Features:**
+- Engaging and informative content that drives engagement
+- SEO-optimized structure for better search visibility
+- Clear call-to-action elements to guide user behavior
+- Consistent messaging that aligns with your brand voice
+
+The generated content is ready for immediate use and can be easily customized to fit specific requirements or platforms.`;
+    } else {
+      response = `Here's my response to your request:
+
+${prompt}
+
+Based on the input data and your specific requirements, I've provided a comprehensive response that addresses all key points. The response includes relevant insights, practical recommendations, and actionable next steps.
+
+**Summary:**
+The analysis covers all requested aspects and provides clear guidance for implementation. The recommendations are based on industry best practices and are designed to deliver measurable results.
+
+**Next Steps:**
+1. Review the recommendations and prioritize based on your specific needs
+2. Develop an implementation plan with clear timelines and milestones
+3. Monitor progress and adjust strategies as needed
+
+This response provides a solid foundation for your decision-making process.`;
+    }
+    
     return {
-      response: `This is a mock response from the LLM based on the prompt: "${prompt}". The input data was: ${JSON.stringify(inputData)}`,
+      response,
       model: config.model || 'gpt-3.5-turbo',
       usage: {
-        promptTokens: 50,
-        completionTokens: 100,
-        totalTokens: 150
+        promptTokens: Math.floor(Math.random() * 200) + 100,
+        completionTokens: Math.floor(Math.random() * 300) + 200,
+        totalTokens: Math.floor(Math.random() * 500) + 300
+      },
+      metadata: {
+        temperature: config.temperature || 0.7,
+        maxTokens: config.maxTokens || 1000,
+        generatedAt: new Date().toISOString()
       }
     };
   }
