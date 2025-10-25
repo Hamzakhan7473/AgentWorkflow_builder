@@ -40,10 +40,14 @@ export class AgentDeploymentService {
 
   constructor() {
     // Add some sample agents for testing
+    console.log('AgentDeploymentService: Initializing service');
     this.initializeSampleAgents();
+    console.log('AgentDeploymentService: Sample agents initialized, total agents:', this.deployedAgents.size);
   }
 
   private initializeSampleAgents() {
+    const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
+    
     const sampleAgent: AgentInstance = {
       id: 'agent_n2kkyoxc7',
       name: 'Taxora AI Analyzer',
@@ -112,10 +116,11 @@ export class AgentDeploymentService {
       createdAt: new Date(),
       lastUsed: new Date(),
       usageCount: 5,
-      url: `${window.location.origin}/agent/agent_n2kkyoxc7`
+      url: `${baseUrl}/agent/agent_n2kkyoxc7`
     };
 
     this.deployedAgents.set('agent_n2kkyoxc7', sampleAgent);
+    console.log('AgentDeploymentService: Sample agent created with ID:', sampleAgent.id);
   }
 
   async deployAgent(workflow: Workflow, config: DeploymentConfig): Promise<DeploymentResult> {
@@ -194,7 +199,11 @@ export class AgentDeploymentService {
   }
 
   getAgent(agentId: string): AgentInstance | null {
-    return this.deployedAgents.get(agentId) || null;
+    console.log('AgentDeploymentService: Getting agent with ID:', agentId);
+    console.log('AgentDeploymentService: Available agents:', Array.from(this.deployedAgents.keys()));
+    const agent = this.deployedAgents.get(agentId) || null;
+    console.log('AgentDeploymentService: Found agent:', agent);
+    return agent;
   }
 
   getAllAgents(): AgentInstance[] {
